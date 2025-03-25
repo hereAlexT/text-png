@@ -88,6 +88,7 @@ export async function GET(request: NextRequest) {
     const fontFamily = searchParams.get('font') || 'Suisse';
     const fontSize = parseInt(searchParams.get('font_size') || '24', 10);
     const backgroundColor = searchParams.get('background_color') || 'transparent';
+    const textColor = searchParams.get('color') || 'black';
     const scale = parseInt(searchParams.get('scale') || '2', 10);
 
     // Register both regular and bold variants of the font
@@ -135,7 +136,7 @@ export async function GET(request: NextRequest) {
     segments.forEach(segment => {
       const fontName = segment.isBold ? boldFontFamily : regularFontFamily;
       ctx.font = `${scaledFontSize}px "${fontName}"`;
-      ctx.fillStyle = 'black';
+      ctx.fillStyle = textColor;
       ctx.textBaseline = 'middle';
       ctx.fillText(segment.text, currentX, height / 2);
       currentX += ctx.measureText(segment.text).width;
